@@ -1,5 +1,5 @@
 import { useEffect, useState, lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { SharedLayout } from "./SharedLayout/SharedLayout";
 
 export const App = () => {
@@ -30,8 +30,16 @@ useEffect(() => {
       {!isLoading && (
         <Routes>
           <Route path='/' element={<SharedLayout tabs={sortedData} />}>
-            {sortedData.map(tab => {
+            {sortedData.map((tab, i)=> {
               const Page = lazy(() => import(`./${tab.path}`));
+              if (i === 0) {
+                return (
+                  <>
+                    <Route index element={ <Navigate to={tab.id} /> }/>
+                    <Route key={tab.id + tab.order} path={tab.id}  element={<Page />} />
+                  </>
+                )
+              }
               return (
                 <Route key={tab.id + tab.order} path={tab.id} element={<Page />} />
               )
