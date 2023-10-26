@@ -5,7 +5,10 @@ import { Container, Header, Links } from "./SharedLayout.styled";
 
 export const SharedLayout = ({ tabs }) => {
 
+    const getRandom = () => {
     const random = Math.floor(Math.random() * 10000);
+    return random;
+  }
 
     return (
         <Container>
@@ -13,7 +16,7 @@ export const SharedLayout = ({ tabs }) => {
                 <nav>
                     {
                         tabs.map(tab => (
-                            <Links key={tab.id + random} to={tab.id}>
+                            <Links key={getRandom()} to={tab.id}>
                                 {tab.title}
                             </Links>
                         ))

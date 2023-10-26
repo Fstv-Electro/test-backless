@@ -21,8 +21,11 @@ useEffect(() => {
   fetchTabs()
 }, [])
   const sortedData = tabsData.sort((a, b) => a.order - b.order);
-  console.log(sortedData)
 
+  const getRandom = () => {
+    const random = Math.floor(Math.random() * 10000);
+    return random;
+  }
   
   return (
     <>
@@ -35,13 +38,13 @@ useEffect(() => {
               if (i === 0) {
                 return (
                   <>
-                    <Route index element={ <Navigate to={tab.id} /> }/>
-                    <Route key={tab.id + tab.order} path={tab.id}  element={<Page />} />
+                    <Route key={getRandom()} index element={ <Navigate to={tab.id} /> }/>
+                    <Route key={getRandom()} path={tab.id}  element={<Page />} />
                   </>
                 )
               }
               return (
-                <Route key={tab.id + tab.order} path={tab.id} element={<Page />} />
+                <Route key={getRandom()} path={tab.id} element={<Page />} />
               )
             })}
             <Route path="*" element={<div>Not Found</div> } />
